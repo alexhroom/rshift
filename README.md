@@ -2,7 +2,8 @@
 An R library for paleoecology and regime shift analysis.
 
 # Current commands:
-**``RSI()``: performs STARS analysis (Rodionov, 2004) on a dataset. Takes 6 arguments (4 mandatory):**  
+**``RSI()``: performs STARS analysis (Rodionov, 2004) on a dataset. Takes 6 arguments (4 mandatory):**
+
   ``data`` - the dataframe that will be used.  
   ``col`` - the column we are measuring change on - variable 'X' in STARS.
   ``time`` - the column containing time units (e.g. age of a subsample)
