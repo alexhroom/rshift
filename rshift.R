@@ -1,22 +1,16 @@
-#requires packages tidyverse, zoo
+#requires package tidyverse
 #a package of paleoecology-related functions, esp.
 #for core samples etc.
 require(tidyverse)
-require(zoo)
 
 RSI <- function(data, col, time, l, prob = 0.95, startrow = 1){
-  #performs a STARS test (Rodionov, 2004) on a dataset. variables:
-  #data = dataset to use
-  #col = column containing regime proxy variable
-  #l = cut-off length of regime
-  #prob = probability value for the test (defaults to 0.05)
-  #startrow = which row of the 
-  
+  #performs a STARS test (Rodionov, 2004) on a dataset.
+
   #creates necessary variables
   #finds sigma^2_L
   var_L <- data %>%
     select(all_of(col)) %>%
-    rollapply(l, var) %>%
+    zoo::rollapply(l, var) %>%
     mean()
   
   #creates diff value for data
@@ -85,7 +79,7 @@ RSI <- function(data, col, time, l, prob = 0.95, startrow = 1){
         add_row(slice(values, candidate))
       }
     else{
-      RSI_vals <- c(RSI_vals, RSI)
+      RSI_vals <- c(RSI_vals, as.numeric(RSI))
       shift_years <- c(shift_years, candidate)
       down <- FALSE
       regime_vals <- data %>%
@@ -100,11 +94,25 @@ RSI <- function(data, col, time, l, prob = 0.95, startrow = 1){
     shift_boundary_upper = regime_mean + diff
   }
   #creates results tibble
-  results <- list(shift_rows = shift_years, RSI = RSI_vals)
+  results <- tibble(shift_rows = shift_years, RSI = RSI_vals)
   dates <- data %>%
-    select(all_of(time))
-  results <- bind_rows(results) %>%
-    mutate(age = dates[shift_rows, 1], .before = RSI) %>%
+    select(all_of(time)) %>%
+    tibble::rowid_to_column("ID")
+  results <- results %>%
+    left_join(dates, by = c("shift_rows" = "ID")) %>%
     select(-shift_rows)
-  return(results)
+    return(results)
+}
+
+RSI_graph <- function(data, col, time, rsi){
+  #creates two graphs, one of data and one of the RSI,
+  #as seen in Rodionov (2004)
+  
+  #
+  p1 <- ggplot(data) + geom_col(aes(x = {{ time }}, y = {{ col }}))
+  p2 <- ggplot(data) + geom_col(aes(x = {{ time }}, y = {{ rsi }}))
+  grid::pushViewport(grid::viewport(layout = grid::grid.layout(2, 1)))
+  vplayout <- function(x, y) grid::viewport(layout.pos.row = x, layout.pos.col = y)
+  print(p1, vp = vplayout(1, 1))
+  print(p2, vp = vplayout(2, 1))
 }
