@@ -3,7 +3,7 @@
 #for core samples etc.
 require(tidyverse)
 
-RSI <- function(data, col, time, l, prob = 0.95, startrow = 1){
+RSI <- function(data, col, time, l, prob = 0.95, startrow = 1, merge = FALSE){
   #performs a STARS test (Rodionov, 2004) on a dataset.
 
   #creates necessary variables
@@ -101,7 +101,13 @@ RSI <- function(data, col, time, l, prob = 0.95, startrow = 1){
   results <- results %>%
     left_join(dates, by = c("shift_rows" = "ID")) %>%
     select(-shift_rows)
+  if(merge == FALSE){
+    return(results)}
+  else{
+    results <- full_join(data, results, by = time)
+    results[is.na(results)] <- 0
     return(results)
+  }
 }
 
 RSI_graph <- function(data, col, time, rsi){
