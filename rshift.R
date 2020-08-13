@@ -4,7 +4,7 @@
 require(tidyverse)
 require(zoo)
 
-RSI <- function(data, col, l, prob = 0.95, startrow = 1){
+RSI <- function(data, col, time, l, prob = 0.95, startrow = 1){
   #performs a STARS test (Rodionov, 2004) on a dataset. variables:
   #data = dataset to use
   #col = column containing regime proxy variable
@@ -44,9 +44,9 @@ RSI <- function(data, col, l, prob = 0.95, startrow = 1){
   values <- data %>%
     select(all_of(col))
   
-  while(candidate < nrow(data)-1){
+  while(candidate < nrow(data)-l){
     #iterates check until regime boundary is found
-    while(candidate < nrow(data)-1){
+    while(candidate < nrow(data)-l){
       candidate <- candidate + 1
       if((as.numeric(values[candidate, 1]) < shift_boundary_lower) | (as.numeric(values[candidate, 1]) > shift_boundary_upper)){
         if((as.numeric(values[candidate, 1]) < shift_boundary_lower)){
@@ -71,6 +71,7 @@ RSI <- function(data, col, l, prob = 0.95, startrow = 1){
         x_i_star <- (values[i, 1] - shift_boundary_upper)
       }
     RSI = RSI + (x_i_star / (l * var_L))
+    print
     if(RSI < 0){
       RSI = 0
       break
@@ -99,7 +100,11 @@ RSI <- function(data, col, l, prob = 0.95, startrow = 1){
     shift_boundary_upper = regime_mean + diff
   }
   #creates results tibble
-  results <- list(shift_rows = shift_years, RSIs = RSI_vals)
-  results <- bind_rows(results)
+  results <- list(shift_rows = shift_years, RSI = RSI_vals)
+  dates <- data %>%
+    select(all_of(time))
+  results <- bind_rows(results) %>%
+    mutate(age = dates[shift_rows, 1], .before = RSI) %>%
+    select(-shift_rows)
   return(results)
 }
