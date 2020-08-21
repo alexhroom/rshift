@@ -64,8 +64,7 @@ RSI <- function(data, col, time, l, prob = 0.95, startrow = 1, merge = FALSE){
       else{
         x_i_star <- (values[i, 1] - shift_boundary_upper)
       }
-    RSI = RSI + (x_i_star / (l * var_L))
-    print
+    RSI = RSI + (x_i_star / (l * sqrt(var_L)))
     if(RSI < 0){
       RSI = 0
       break
@@ -121,4 +120,13 @@ RSI_graph <- function(data, col, time, rsi){
   vplayout <- function(x, y) grid::viewport(layout.pos.row = x, layout.pos.col = y)
   print(p1, vp = vplayout(1, 1))
   print(p2, vp = vplayout(2, 1))
+}
+
+Hellinger_trans <- function(data, col){
+  #Hellinger transforms data (Legendre and Legendre, Numerical Ecology)
+  #to make distance calculations better
+  y_i_plus <- sum(data[col], na.rm = TRUE)
+  print(y_i_plus)
+  data %>%
+    mutate(hellinger_trans_vals = sqrt(data[col] / y_i_plus))
 }
