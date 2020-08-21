@@ -1,5 +1,6 @@
 # rshift
-An R library for paleoecology and regime shift analysis.
+An R library for paleoecology and regime shift analysis.  
+Based on tidyverse, so these functions assume your data is in tidy format.
 
 # Current commands:
 **``RSI()``: performs STARS analysis (Rodionov, 2004) on a dataset. Takes 7 arguments (4 mandatory):**
@@ -23,3 +24,10 @@ An R library for paleoecology and regime shift analysis.
  ``rsi`` - the column containing RSI values - for best visualisation (i.e. both graphs on a 1:1 scale), ensure RSI values of 0 are 0's, rather than NA (for example, using the merge functionality of ``RSI()``).  
  Result produced: 2 graphs, one on top of the other, depicting as mentioned above.  
  NB: while ``RSI()`` requires quotes around col and time, this function DOES NOT WORK if the arguments are in quotes. I will fix this.
+
+  ---
+ **``Hellinger_trans()``: Hellinger transforms data (*Nunerical Ecology*, Legendre and Legendre). Mutates the original dataset with a column containing Hellinger transformed values. Takes 2 mandatory arguments:**
+ 
+ ``data`` - the dataframe that will be used.  
+ ``col`` - the column we are measuring change on.  
+ Result produced: the original dataset, with an added column ``hellinger_trans_vals``, containing hellinger transformed values for each data point.
