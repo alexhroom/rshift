@@ -122,11 +122,23 @@ RSI_graph <- function(data, col, time, rsi){
   print(p2, vp = vplayout(2, 1))
 }
 
-Hellinger_trans <- function(data, col){
+Hellinger_trans <- function(data, col, site){
   #Hellinger transforms data (Legendre and Legendre, Numerical Ecology)
   #to make distance calculations better
-  y_i_plus <- sum(data[col], na.rm = TRUE)
-  print(y_i_plus)
-  data %>%
-    mutate(hellinger_trans_vals = sqrt(data[col] / y_i_plus))
+  
+  #creates an empty table with the original table's columns, plus the hellinger values
+  #i'm aware this is incredibly hacky, but i couldn't find a better way
+  results <- data %>%
+    cbind(hellinger_trans_vals = c(1:nrow(data))) %>%
+    filter(col == "bad programming")
+  #finds values for each site
+  unique_sites <- unique(data[[site]])
+  for(s in unique_sites){
+    site_obs <- data[data[[site]] == s,]
+    y_i_plus <- sum(site_obs[col], na.rm = TRUE)
+    site_obs <- mutate(site_obs, hellinger_trans_vals = sqrt(site_obs[col] / y_i_plus))
+  #binds values for each site back into a copy of the original data set
+    results <- rbind(results, site_obs)
+  }
+  return(results)
 }
