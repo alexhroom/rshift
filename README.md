@@ -26,8 +26,9 @@ Based on tidyverse, so these functions assume your data is in tidy format.
  NB: while ``RSI()`` requires quotes around col and time, this function DOES NOT WORK if the arguments are in quotes. I will fix this.
 
   ---
- **``Hellinger_trans()``: Hellinger transforms data (*Nunerical Ecology*, Legendre and Legendre). Mutates the original dataset with a column containing Hellinger transformed values. Takes 2 mandatory arguments:**
+ **``Hellinger_trans()``: Hellinger transforms data (*Nunerical Ecology*, Legendre and Legendre). Mutates the original dataset with a column containing Hellinger transformed values. Takes 3 mandatory arguments:**
  
  ``data`` - the dataframe that will be used.  
  ``col`` - the column we are measuring change on.  
+ ``site`` - the column containing the site of each sample.
  Result produced: the original dataset, with an added column ``hellinger_trans_vals``, containing hellinger transformed values for each data point.
