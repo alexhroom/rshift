@@ -32,3 +32,12 @@ Based on tidyverse, so these functions assume your data is in tidy format.
  ``col`` - the column we are measuring change on.  
  ``site`` - the column containing the site of each sample.
  Result produced: the original dataset, with an added column ``hellinger_trans_vals``, containing hellinger transformed values for each data point.
+ 
+ ---
+ 
+  **``absolute_to_percentage()``: Converts absolute abundance data for each site into percentage of total abundance per site. Takes 3 mandatory arguments:**
+ 
+ ``data`` - the dataframe that will be used.  
+ ``col`` - the column we are measuring change on.  
+ ``site`` - the column containing the site of each sample.
+ Result produced: the original dataset, with an added column ``percentage``, containing percentage abundance values for each data point.
