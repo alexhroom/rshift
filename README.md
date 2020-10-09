@@ -31,6 +31,7 @@ Based on tidyverse, so these functions assume your data is in tidy format.
 ``data`` - the dataframe that will be used.   
 ``col`` - the column we are measuring change on - variable 'X' in STARS.  
 ``time`` - the column containing time units (e.g. age of a subsample)  
+Result produced: Returns the time unit of the first found regime shift.
 
   ---
   
@@ -49,3 +50,13 @@ Based on tidyverse, so these functions assume your data is in tidy format.
  ``col`` - the column we are measuring change on.  
  ``site`` - the column containing the site of each sample.
  Result produced: the original dataset, with an added column ``percentage``, containing percentage abundance values for each data point.
+
+---
+
+**``rolling_autoc()``: Finds rolling autocorrelation over an interval. (Used experimentally for early warning signs: see Liu, Gao & Wang, 2018). Takes 3 mandatory arguments:**
+
+``data`` - the dataframe that will be used.
+``col`` - the column we are measuring change on.
+``l`` - the interval (no. of columns) used.
+Result produced: a table of rolling lag-1 autocorrelation values.
+``l`` - the time interval for 
