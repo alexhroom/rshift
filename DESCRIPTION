@@ -9,8 +9,7 @@ Description: Contains a variety of functions, based around
 Depends:
   tidyverse
 Imports:
-  grid
-  zoo
+  grid, zoo
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
