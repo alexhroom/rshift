@@ -23,7 +23,7 @@ Based on tidyverse, so these functions assume your data is in tidy format.
  ``time`` - the column containing time units (e.g. age of a subsample)  
  ``rsi`` - the column containing RSI values - for best visualisation (i.e. both graphs on a 1:1 scale), ensure RSI values of 0 are 0's, rather than NA (for example, using the merge functionality of ``Rodionov()``).  
  Result produced: 2 graphs, one on top of the other, depicting as mentioned above.  
- NB: while ``RSI()`` requires quotes around col and time, this function DOES NOT WORK if the arguments are in quotes. I will fix this.
+ NB: while ``Rodionov()`` requires quotes around col and time, this function DOES NOT WORK if the arguments are in quotes. I will fix this.
 
   ---
 **``Lanzante()``: Performs a L-test (Lanzante, 1996) to find regime shifts. Takes 3 mandatory arguments:**
