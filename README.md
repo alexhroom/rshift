@@ -31,7 +31,7 @@ Based on tidyverse, so these functions assume your data is in tidy format.
 ``data`` - the dataframe that will be used.   
 ``col`` - the column we are measuring change on - variable 'X' in STARS.  
 ``time`` - the column containing time units (e.g. age of a subsample)  
-``p`` - the largest p-value you want to check regime shifts for. Defaults to p = 0.05.
+``p`` - the largest p-value you want to check regime shifts for. Defaults to p = 0.05.  
 ``merge`` - changes the result to be either a regime-shift only table (if FALSE), or an addition to the original table (if TRUE); see below:
 Result produced: if merge = FALSE (default), produces a 2-column table of time (the time value for each regime shift) and p (the p-value for each regime shift). If merge = TRUE, returns the original dataset with an extra p-value column, giving the p-value for each time unit - 0 for non-shift years. 
 
