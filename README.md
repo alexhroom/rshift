@@ -12,7 +12,7 @@ Based on tidyverse, so these functions assume your data is in tidy format.
   ``prob`` - the p-value for significance of a regime shift. Defaults to p = 0.05  
   ``startrow`` - the row from which the algorithm starts - use if you want to ignore some rows. Defaults to 1  
   ``merge`` - changes the result to be either a regime-shift only table (if FALSE), or an addition to the original table (if TRUE); see below:
-  Result produced: if merge = FALSE (default), produces a 2-column table of time (the time value for each regime shift) and RSI (the RSI for each regime shift). If merge = TRUE, returns the original dataset with an extra RSI column, giving the RSI for each year - 0 for non-shift years. 
+  Result produced: if merge = FALSE (default), produces a 2-column table of time (the time value for each regime shift) and RSI (the RSI for each regime shift). If merge = TRUE, returns the original dataset with an extra RSI column, giving the RSI for each time unit - 0 for non-shift years. 
   
   ---
   
@@ -26,12 +26,16 @@ Based on tidyverse, so these functions assume your data is in tidy format.
  NB: while ``Rodionov()`` requires quotes around col and time, this function DOES NOT WORK if the arguments are in quotes. I will fix this.
 
   ---
-**``Lanzante()``: Performs a L-test (Lanzante, 1996) to find regime shifts. Takes 3 mandatory arguments:**
+**``Lanzante()``: Performs a L-test (Lanzante, 1996) to find regime shifts. Takes 5 arguments (3 mandatory):**
 
 ``data`` - the dataframe that will be used.   
 ``col`` - the column we are measuring change on - variable 'X' in STARS.  
 ``time`` - the column containing time units (e.g. age of a subsample)  
-Result produced: Returns the time unit of the first found regime shift.
+``p`` - the largest p-value you want to check regime shifts for. Defaults to p = 0.05.
+``merge`` - changes the result to be either a regime-shift only table (if FALSE), or an addition to the original table (if TRUE); see below:
+Result produced: if merge = FALSE (default), produces a 2-column table of time (the time value for each regime shift) and p (the p-value for each regime shift). If merge = TRUE, returns the original dataset with an extra p-value column, giving the p-value for each time unit - 0 for non-shift years. 
+
+NOTE: it may be useful to visualise this data - you can do so using RSI_graph as seen above, but use the p-value column for the RSI column.
 
   ---
   
