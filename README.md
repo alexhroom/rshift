@@ -2,6 +2,8 @@
 An R library for paleoecology and regime shift analysis.  
 Based on tidyverse, so these functions assume your data is in tidy format.
 
+A detailed explanation of Rodionov's STARS algorithm, and how to use it for regime shift analysis in R, is [available here](https://github.com/alexhroom/rshift/blob/master/rshift%20STARS%20manual.pdf)
+
 # Current commands:
 **``Rodionov()``: performs STARS analysis (Rodionov, 2004) on a dataset. Takes 7 arguments (4 mandatory):**
 
