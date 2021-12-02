@@ -1,7 +1,7 @@
 Package: rshift
 Type: Package
 Title: Paleoecology Functions for Regime Shift Analysis
-Version: 0.1.0
+Version: 1.0
 Author: Alex H. Room
 Maintainer: Alex H. Room <alex.room@btinternet.com>
 Description: Contains a variety of functions, based around
