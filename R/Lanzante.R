@@ -1,6 +1,22 @@
+#' Lanzante L-test
+#'
+#' performs the L-method for detection of regime shifts (Lanzante, 1996)
+#'
+#' @param data The dataframe to be used.
+#' @param col The column we are measuring change on.
+#' @param time The column containing time units (e.g. age of a subsample)
+#' @param p The largest p-value you want to check regime shifts for. Defaults to p = 0.05.  
+#' @param merge Sets the result to be either a regime-shift only table (if FALSE), or an addition to the original table (if TRUE)
+#' @return If merge = FALSE (default), produces a 2-column table of time (the time value for each regime shift) and p (the p-value for each regime shift). If merge = TRUE, returns the original dataset with an extra p-value column, giving the p-value for each time unit - 0 for non-shift years.
+#' @examples 
+#' \dontrun{Lanzante(my_data, "abundance", "age")}
+#' \dontrun{Lanzante(my_data, "abundance", "age", p=0.10, merge=TRUE)}
+#' @import dplyr
+#' @importFrom magrittr %>%
+#' @importFrom stats pnorm
+#' @importFrom tibble as.tibble
+#' @export 
 Lanzante <- function(data, col, time, p =0.05, merge = FALSE){
-  #performs the L-method for detection of regime shifts
-  #Lanzante, 1996
 
   #ranks values in column - also gets rows because
   #the for loop doesn't like me putting it straight in

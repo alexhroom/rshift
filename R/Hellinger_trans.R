@@ -1,6 +1,16 @@
+#' Hellinger transform
+#' 
+#' Hellinger transforms data (Legendre and Legendre, Numerical Ecology)
+#'  
+#' @param data The dataframe to be used.
+#' @param col The column that change is being measured on.
+#' @param site The column containing the site of each sample.
+#' @return The `data` dataframe with an added 'hellinger_trans_vals' column.
+#' @import dplyr
+#' @importFrom magrittr %>%
+#' @export
 Hellinger_trans <- function(data, col, site){
-  #Hellinger transforms data (Legendre and Legendre, Numerical Ecology)
-  #to make distance calculations better
+
 
   #creates an empty table with the original table's columns, plus the hellinger values
   #i'm aware this is incredibly hacky, but i couldn't find a better way

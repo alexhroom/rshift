@@ -1,6 +1,16 @@
+#' Rolling autocorrelation
+#'
+#' finds lag-1 autocorrelation in a rolling window; can be used to predict resilience (Liu, Gao, & Wang, 2018)
+#'
+#' @param data The dataframe that will be used.
+#' @param col The column we are measuring change on.
+#' @param l The time interval (no. of columns) used in the autocorrelation.
+#' @return A table of rolling lag-1 autocorrelation values.
+#' @import dplyr
+#' @importFrom stats acf
+#' @export
 rolling_autoc <- function(data, col, l){
-  #finds lag-1 autocorrelation in a rolling window
-  #can be used to predict resilience (Liu, Gao, & Wang, 2018)
+
   nrows <- (nrow(data) - l)
   results <- vector()
   #applies the function to rolling groups of l data entries
