@@ -1,6 +1,6 @@
 # rshift
 An R library for paleoecology and regime shift analysis.  
-Based on tidyverse, so these functions assume your data is in tidy format.
+These functions assume your data is in tidy format.
 
 A detailed explanation of Rodionov's STARS algorithm, and how to use it for regime shift analysis in R, is [available here](https://github.com/alexhroom/rshift/blob/master/rshift%20STARS%20manual.pdf)
 
@@ -25,7 +25,6 @@ A detailed explanation of Rodionov's STARS algorithm, and how to use it for regi
  ``time`` - the column containing time units (e.g. age of a subsample)  
  ``rsi`` - the column containing RSI values - for best visualisation (i.e. both graphs on a 1:1 scale), ensure RSI values of 0 are 0's, rather than NA (for example, using the merge functionality of ``Rodionov()``).  
  Result produced: 2 graphs, one on top of the other, depicting as mentioned above.  
- NB: while ``Rodionov()`` requires quotes around col and time, this function DOES NOT WORK if the arguments are in quotes. I will fix this.
 
   ---
 **``Lanzante()``: Performs a L-test (Lanzante, 1996) to find regime shifts. Takes 5 arguments (3 mandatory):**
@@ -63,6 +62,6 @@ NOTE: it may be useful to visualise this data - you can do so using RSI_graph as
 
 ``data`` - the dataframe that will be used.
 ``col`` - the column we are measuring change on.
-``l`` - the interval (no. of columns) used.
+``l`` - the time interval (no. of columns) used in the autocorrelation.
 Result produced: a table of rolling lag-1 autocorrelation values.
-``l`` - the time interval for 
+
