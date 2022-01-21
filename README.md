@@ -1,3 +1,5 @@
+[Now on CRAN!](https://cran.r-project.org/package=rshift)
+
 # rshift
 An R library for paleoecology and regime shift analysis.  
 These functions assume your data is in tidy format.
