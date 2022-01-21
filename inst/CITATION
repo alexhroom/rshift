@@ -1,0 +1,10 @@
+note <- sprintf("R package version %s", meta$Version)
+
+bibentry(bibtype = "Manual",
+         title = "{rshift}: paleoecology and regime shift analysis",
+         author = c(person("Alex", "Room"),
+                    person("Felipe", "Franco-Gaviria"),
+                    person("Dunia", "Urrego")),
+         year = 2020,
+         url = "https://CRAN.R-project.org/package=rshift")
+

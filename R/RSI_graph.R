@@ -8,7 +8,7 @@
 #' @param rsi The column containing RSI values (for best visualisation use Rodionov() with merge=TRUE)
 #' @return Two graphs, one on top of the other; one of col against time and one of RSI against time.
 #' @examples 
-#' \dontrun{RSI_graph(my_data, "abundance", "age", "RSI")}
+#' RSI_graph(lake_RSI, "DCA1", "Age", "RSI")
 #' @importFrom ggplot2 ggplot geom_col aes
 #'
 #' @export

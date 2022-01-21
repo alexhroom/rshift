@@ -11,14 +11,16 @@
 #' @param merge Sets the result to be either a regime-shift only table (if FALSE), or an addition to the original table (if TRUE)
 #' @return If merge = FALSE (default), produces a 2-column table of time (the time value for each regime shift) and RSI (the regime shift index for each regime shift). If merge = TRUE, returns the original dataset with an extra RSI column, giving the regime shift index for each time unit - 0 for non-shift years.
 #' @examples 
-#' \dontrun{Rodionov(my_data, "abundance", "age", l=5)}
-#' \dontrun{Rodionov(my_data, "abundance", "age", l=5, prob=0.99, startrow=2, merge=TRUE)}
+#' Rodionov(lake_data, "DCA1", "Age", l=5)
+#' Rodionov(lake_data, "DCA1", "Age", l=5, prob=0.99, startrow=2, merge=TRUE)
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @importFrom stats qt var
 #' @export 
 Rodionov <- function(data, col, time, l, prob = 0.95, startrow = 1, merge = FALSE){
-
+  #workaround for R CMD check bug
+  shift_rows <- NULL
+  
   #creates necessary variables
   #finds sigma^2_L
   var_L <- data %>%

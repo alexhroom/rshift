@@ -28,6 +28,6 @@ If merge = FALSE (default), produces a 2-column table of time (the time value fo
 performs STARS analysis (Rodionov, 2004) on a dataset
 }
 \examples{
-\dontrun{Rodionov(my_data, "abundance", "age", l=5)}
-\dontrun{Rodionov(my_data, "abundance", "age", l=5, prob=0.99, startrow=2, merge=TRUE)}
+Rodionov(lake_data, "DCA1", "Age", l=5)
+Rodionov(lake_data, "DCA1", "Age", l=5, prob=0.99, startrow=2, merge=TRUE)
 }

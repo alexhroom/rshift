@@ -1,15 +1,28 @@
 Package: rshift
 Type: Package
 Title: Paleoecology Functions for Regime Shift Analysis
-Version: 2.1.0
-Author: Alex H. Room, Felipe Franco-Gaviria, Dunia H. Urrego
-Copyright: Alex H. Room
-Maintainer: Alex H. Room <alex.room@btinternet.com>
+Version: 2.1.1
+Authors@R: c(person("Alex H.", "Room", 
+                    role = c("aut", "cre", "cph"), 
+                    email = "alex.room@btinternet.com"),
+             person("Felipe", "Franco-Gaviria", 
+                    role = c("ctb", "fnd")),
+             person("Dunia H.", "Urrego", 
+                    role = c("ctb", "fnd")))
 Description: Contains a variety of functions, based around
     regime shift analysis of paleoecological data.
+    Citations:
+    Rodionov() from Rodionov (2004) <doi:10.1029/2004GL019448>
+    Lanzante() from Lanzante (1996) <doi:10.1002/(SICI)1097-0088(199611)16:11%3C1197::AID-JOC89%3E3.0.CO;2-L>  
+    Hellinger_trans from Numerical Ecology, Legendre & Legendre (ISBN 9780444538680)
+    rolling_autoc from Liu, Gao & Wang (2018) <doi:10.1016/j.scitotenv.2018.06.276>
+    Sample data sets lake_data & lake_RSI processed from Bush, Silman & Urrego (2004) <doi:10.1126/science.1090795>.
+Suggests: R.rsp
+VignetteBuilder: R.rsp
+Depends: R (>= 3.5.0)
 Imports:
   grid, zoo, tibble, dplyr, ggplot2, magrittr
-License: MIT License
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2

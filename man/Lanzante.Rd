@@ -24,6 +24,6 @@ If merge = FALSE (default), produces a 2-column table of time (the time value fo
 performs the L-method for detection of regime shifts (Lanzante, 1996)
 }
 \examples{
-\dontrun{Lanzante(my_data, "abundance", "age")}
-\dontrun{Lanzante(my_data, "abundance", "age", p=0.10, merge=TRUE)}
+Lanzante(lake_data, "DCA1", "Age")
+Lanzante(lake_data, "DCA1", "Age", p=0.10, merge=TRUE)
 }

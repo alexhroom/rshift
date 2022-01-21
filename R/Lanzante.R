@@ -9,8 +9,8 @@
 #' @param merge Sets the result to be either a regime-shift only table (if FALSE), or an addition to the original table (if TRUE)
 #' @return If merge = FALSE (default), produces a 2-column table of time (the time value for each regime shift) and p (the p-value for each regime shift). If merge = TRUE, returns the original dataset with an extra p-value column, giving the p-value for each time unit - 0 for non-shift years.
 #' @examples 
-#' \dontrun{Lanzante(my_data, "abundance", "age")}
-#' \dontrun{Lanzante(my_data, "abundance", "age", p=0.10, merge=TRUE)}
+#' Lanzante(lake_data, "DCA1", "Age")
+#' Lanzante(lake_data, "DCA1", "Age", p=0.10, merge=TRUE)
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @importFrom stats pnorm

@@ -22,5 +22,5 @@ Two graphs, one on top of the other; one of col against time and one of RSI agai
 creates two graphs, one of data and one of the RSI, as seen in Rodionov (2004)
 }
 \examples{
-\dontrun{RSI_graph(my_data, "abundance", "age", "RSI")}
+RSI_graph(lake_RSI, "DCA1", "Age", "RSI")
 }
