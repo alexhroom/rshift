@@ -60,7 +60,7 @@ fn rust_rodionov(vals: &[f64], t_crit: f64, l: usize) -> std::vec::Vec<f64> {
         }
 
         if rsi > 0. {  // regime boundary found; start new regime
-            results[i] = rsi;
+            results.push(rsi);
             regime_length = l;
             regime_mean = 0.;
             for v in vals.iter().skip(i).take(l) {
@@ -68,6 +68,7 @@ fn rust_rodionov(vals: &[f64], t_crit: f64, l: usize) -> std::vec::Vec<f64> {
             }
             regime_mean /= l as f64;
         } else {  // regime test failed; add value to current regime
+            results.push(0.);
             regime_mean = (regime_mean * (regime_length as f64)) + val;
             regime_length += 1;
             regime_mean /= regime_length as f64;
