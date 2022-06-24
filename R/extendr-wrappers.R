@@ -9,6 +9,6 @@
 NULL
 
 #' Calculate STARS RSI points and return to R as a vector
-#' @export
+#'@keywords internal
 rust_rodionov <- function(vals, t_crit, l) .Call(wrap__rust_rodionov, vals, t_crit, l)
 

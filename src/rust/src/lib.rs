@@ -1,7 +1,7 @@
 use extendr_api::prelude::*;
 
 /// Calculate STARS RSI points and return to R as a vector
-/// @export
+///@keywords internal
 #[extendr(use_try_from = true)]
 fn rust_rodionov(vals: &[f64], t_crit: f64, l: usize) -> std::vec::Vec<f64> {
     let mut results = Vec::new();

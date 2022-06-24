@@ -17,6 +17,9 @@
 #' @importFrom stats qt
 #' @export 
 Rodionov <- function(data, col, time, l, prob = 0.95, startrow = 1, merge = FALSE){
+  #workaround for R CMD check bug
+  RSI <- NULL
+  
   vals <- data[[col]]
   t_crit <- qt(prob, (2 * l - 2))
   

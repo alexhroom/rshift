@@ -1,7 +1,7 @@
 Package: rshift
 Type: Package
 Title: Paleoecology Functions for Regime Shift Analysis
-Version: 2.1.1
+Version: 2.2.0
 Authors@R: c(person("Alex H.", "Room", 
                     role = c("aut", "cre", "cph"), 
                     email = "alex.room@btinternet.com"),
@@ -21,7 +21,7 @@ Suggests: R.rsp
 VignetteBuilder: R.rsp
 Depends: R (>= 3.5.0)
 Imports:
-  grid, zoo, tibble, dplyr, ggplot2, magrittr
+  grid, tibble, dplyr, ggplot2, magrittr
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

@@ -9,3 +9,4 @@ rust_rodionov(vals, t_crit, l)
 \description{
 Calculate STARS RSI points and return to R as a vector
 }
+\keyword{internal}
