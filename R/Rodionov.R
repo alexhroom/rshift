@@ -22,7 +22,7 @@ Rodionov <- function(data, col, time, l, prob = 0.95, startrow = 1, merge = FALS
   
   # call Rust code and add padding 0's to last l rows
   shift_index <- rust_rodionov(vals, t_crit, l)
-  shift_index <- c(shift_index, rep(0, l))
+  shift_index <- c(shift_index, rep(0, l-1))
 
   #creates results tibble
   results <- mutate(data, RSI = shift_index)

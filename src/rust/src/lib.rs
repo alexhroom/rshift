@@ -43,7 +43,7 @@ fn rust_rodionov(vals: &[f64], t_crit: f64, l: usize) -> std::vec::Vec<f64> {
     let mut boundary_upper: f64 = regime_mean + diff;
     let mut boundary_lower: f64 = regime_mean - diff;
 
-    let cand_len = vals.len() - l;
+    let cand_len = vals.len() - l + 1;
     let candidates = &vals[..cand_len];
     let mut rsi: f64;
 
