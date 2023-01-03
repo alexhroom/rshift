@@ -47,7 +47,7 @@ jobs:
         run: |
           tlmgr --version
           ## Additional LaTeX packages needed for the vignettes:
-          tlmgr install titlesec graphicx caption
+          tlmgr install titlesec caption
           tlmgr list --only-installed
 
       - uses: actions/checkout@v3
