@@ -1,6 +1,6 @@
 [package]
 name = 'rshift'
-version = '2.2.'
+version = '2.2.0'
 edition = '2022'
 
 [lib]
