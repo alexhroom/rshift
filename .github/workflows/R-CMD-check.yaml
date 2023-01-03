@@ -42,11 +42,14 @@ jobs:
           rustup target add i686-pc-windows-gnu
           rustup target add x86_64-pc-windows-gnu
       
-      - name: Set up pdflatex
+      - uses: r-lib/actions/setup-tinytex@v2
+ 
+      - name: Install additional LaTeX packages
         run: |
-          sudo apt-get install texlive-latex-base
-          sudo apt-get install texlive-fonts-recommended
-          sudo apt install texlive-fonts-extra
+          tlmgr --version
+          ## Additional LaTeX packages needed for the vignettes:
+          tlmgr install titlesec
+          tlmgr list --only-installed
 
       - uses: actions/checkout@v3
 
