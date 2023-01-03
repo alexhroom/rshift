@@ -57,10 +57,10 @@ The other 3 variables are optional:
     \item \texttt{startrow} - where the algorithm should start from, if you want to skip the first few rows of the dataset. Defaults to 1.
     \item \texttt{merge} - changes the result to be either a regime-shift only table (if FALSE), or an addition to the original table (if TRUE). If merge = FALSE (default), produces a 2-column table of 'time' (the time value for each regime shift) and 'RSI' (the RSI for each regime shift). If merge = TRUE, returns the original dataset with an extra RSI column, giving the RSI for each time unit - 0 for non-shift years.
 \end{itemize}
-So, as an example: say my dataset is called 'lake\_data'. I've taken pollen data, and organised it using a DCA, so my DCA data is in a column of the dataset called 'DCA1'. The chronology of the sample is in a column called 'Age', and I choose $l$ to equal 5. I would then type the following:
+So, as an example: say my dataset is called 'lake\_data'. I've taken pollen data, and organised it using a DCA, so my DCA data is in a column of the dataset called 'DCA1'. The chronology of the sample is in a column called 'Age', and I choose $l$ to equal 10. I would then type the following:
 
 \begin{verbatim}
-Rodionov(lake_data, "DCA1", "Age", 5)
+Rodionov(lake_data, "DCA1", "Age", 10)
 \end{verbatim}
 
 and it would return a list of points in the chronology where it has detected a regime shift.
@@ -68,20 +68,21 @@ and it would return a list of points in the chronology where it has detected a r
 \texttt{rshift} also contains \texttt{RSI\_graph}, a way of visualising the results of a STARS test. Using our previous lake\_data, we run \texttt{Rodionov()} with \texttt{merge} set to TRUE, save it as RSI\_lake\_data with the \texttt{<-} operator, then use \texttt{RSI\_graph()} to create a graph.
 
 \begin{verbatim}
-RSI_lake_data <- Rodionov(lake_data, "DCA1", "Age", 5, merge = TRUE)
+RSI_lake_data <- Rodionov(lake_data, "DCA1", "Age", 10, merge = TRUE)
 RSI_graph(RSI_lake_data, "DCA1", "Age", "RSI"))
 \end{verbatim}
 
 It takes the data, variable column and chronology like before, but you must also specify the name of the column with RSI values in (which \texttt{Rodionov()} automatically creates as 'RSI'). \newpage
 \begin{figure}[!h]
-    \includegraphics{15.png}
+\centering
+    \includegraphics[width=\textwidth]{RSI_graph.png}
     \caption{The visualisation produced by \texttt{RSI\_graph()}}
 \end{figure}
 \newpage
 \section{Evaluating use of STARS}
 There are some considerations one should make when using STARS to measure regime shifts. The main one is that the t-test works on the assumption that your observations are independent and normally distributed - i.e. they follow a bell curve where the mean equals the median. For variables like temperature, this is a fair enough assumption, but for other proxies like pollen it may be less reasonable to assume this. In those cases, one may want to consider using a different method such as \citet{lanzante1996resistant}'s L-Method, based on the Mann-Whitney U test. This is also accessible in \texttt{rshift} using the \texttt{Lanzante()} function.\\
 
-Another concern might be with the choice of l - it is rather arbitrary (although for a lot of particularly 'bad' values it simply will not work at all), and one should keep an eye on how it may affect the validity and objectivity of their findings.
+Another concern might be with the choice of $l$ - it is rather arbitrary (although for a lot of particularly 'bad' values it simply will not work at all), and one should keep an eye on how it may affect the validity and objectivity of their findings.
 
 \bibliographystyle{plainnat}
 \bibliography{bibliography.bib}
