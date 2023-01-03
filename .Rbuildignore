@@ -1,3 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-.github
+^src/rust/target
+\.lock$
+\.rs\.bk$
+^README.md$
+^.travis.yml$
+^appveyor.yml$
+^\.github$

@@ -4,6 +4,8 @@
 An R library for paleoecology and regime shift analysis.  
 These functions assume your data is in tidy format.
 
+## Installation
+rshift is available on CRAN, and can be installed using install.packages("rshift"), or via the RStudio GUI package manager. Note that as rshift uses Rust code, if building from source [rustc and cargo are required](https://www.rust-lang.org/tools/install).
 ## Current features
 `rshift` mainly focuses around Rodionov (2004)'s STARS algorithm. A detailed explanation of the algorithm, and how to use it for regime shift analysis in R, is [available here](https://cran.r-project.org/web/packages/rshift/vignettes/STARSmanual.pdf), or in R itself with the command `vignette("STARSmanual")` 
 
