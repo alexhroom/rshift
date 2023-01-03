@@ -41,6 +41,12 @@ jobs:
         run: |
           rustup target add i686-pc-windows-gnu
           rustup target add x86_64-pc-windows-gnu
+      
+      - name: Set up pdflatex
+        run: |
+          sudo apt-get install texlive-latex-base
+          sudo apt-get install texlive-fonts-recommended
+          sudo apt install texlive-fonts-extra
 
       - uses: actions/checkout@v3
 
