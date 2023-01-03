@@ -9,6 +9,8 @@
 NULL
 
 #' Calculate STARS RSI points and return to R as a vector
-#' @export
+#' @param vals The column we are measuring change on
+#' @param t_crit The critical value of a t-distribution at the desired p-value
+#' @param l The cut-off length of a regime; affects sensitivity
 rust_rodionov <- function(vals, t_crit, l) .Call(wrap__rust_rodionov, vals, t_crit, l)
 

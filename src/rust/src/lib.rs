@@ -1,7 +1,9 @@
 use extendr_api::prelude::*;
 
 /// Calculate STARS RSI points and return to R as a vector
-/// @export
+/// @param vals The column we are measuring change on
+/// @param t_crit The critical value of a t-distribution at the desired p-value
+/// @param l The cut-off length of a regime; affects sensitivity
 #[extendr(use_try_from = true)]
 fn rust_rodionov(vals: &[f64], t_crit: f64, l: usize) -> std::vec::Vec<f64> {
     let mut results = Vec::new();
