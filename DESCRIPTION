@@ -21,8 +21,10 @@ Suggests: R.rsp
 VignetteBuilder: R.rsp
 Depends: R (>= 3.5.0)
 Imports:
-  grid, zoo, tibble, dplyr, ggplot2, magrittr
+  grid, tibble, dplyr, ggplot2, magrittr
 License: MIT + file LICENSE
+NeedsCompilation: yes
+SystemRequirements: rustc & cargo if building from source
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
