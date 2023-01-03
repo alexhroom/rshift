@@ -4,11 +4,14 @@ Title: Paleoecology Functions for Regime Shift Analysis
 Version: 2.1.1
 Authors@R: c(person("Alex H.", "Room", 
                     role = c("aut", "cre", "cph"), 
-                    email = "alex.room@btinternet.com"),
+                    email = "alex.room@btinternet.com",
+                    comment = c(ORCID = "0000-0002-5314-2331")),
              person("Felipe", "Franco-Gaviria", 
-                    role = c("ctb", "fnd")),
+                    role = c("ctb", "fnd"),
+                    comment = c(ORCID = "0000-0003-4799-1457")),
              person("Dunia H.", "Urrego", 
-                    role = c("ctb", "fnd")))
+                    role = c("ctb", "fnd"),
+                    comment = c(ORCID = "0000-0001-7938-5529")))
 Description: Contains a variety of functions, based around
     regime shift analysis of paleoecological data.
     Citations:
