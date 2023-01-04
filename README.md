@@ -9,7 +9,7 @@ rshift is available on CRAN, and can be installed using install.packages("rshift
 ## Current features
 `rshift` mainly focuses around Rodionov (2004)'s STARS algorithm. A detailed explanation of the algorithm, and how to use it for regime shift analysis in R, is [available here](https://cran.r-project.org/web/packages/rshift/vignettes/STARSmanual.pdf), or in R itself with the command `vignette("STARSmanual")` 
 
-For further documentation and help with rshift, either run `help(packages = "rshift")`, or view the documentation [here](https://www.rdocumentation.org/packages/rshift). 
+It also contains a few other tools for analysing time series/paleoecological data. For further documentation and help with rshift, either run `help(packages = "rshift")`, or view the documentation [here](https://www.rdocumentation.org/packages/rshift). 
 
 ## Development
 `rshift` was originally developed as part of a NERC GW4+ undergraduate placement, with Dunia H. Urrego and Felipe Franco-Gaviria of the University of Exeter. In particular, it was part of the [BioResilience](https://blogs.exeter.ac.uk/bioresilience/) project.
