@@ -1,1 +1,1 @@
-*.ltx linguist-detectable=false
+vignettes/*.ltx linguist-detectable=false
