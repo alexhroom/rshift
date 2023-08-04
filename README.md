@@ -1,4 +1,4 @@
-[Now on CRAN!](https://cran.r-project.org/package=rshift)
+[Available on CRAN](https://cran.r-project.org/package=rshift) and [R-universe](https://alexhroom.r-universe.dev/rshift)
 
 # rshift
 An R library for paleoecology and regime shift analysis.  
