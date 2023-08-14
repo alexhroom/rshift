@@ -7,6 +7,6 @@
 ^.travis.yml$
 ^appveyor.yml$
 ^\.github$
-^src/rust/vendor
-^src/rust/.cargo
+^src/vendor/
+^src/.cargo
 ^config.dhall
