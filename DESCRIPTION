@@ -2,21 +2,24 @@ Package: rshift
 Type: Package
 Title: Paleoecology Functions for Regime Shift Analysis
 Version: 2.2.0
-Authors@R: c(person("Alex H.", "Room", 
-                    role = c("aut", "cre", "cph"), 
+Authors@R: c(person("Alex H.", "Room",
+                    role = c("aut", "cre", "cph"),
                     email = "alex.room@btinternet.com",
                     comment = c(ORCID = "0000-0002-5314-2331")),
-             person("Felipe", "Franco-Gaviria", 
+             person("Felipe", "Franco-Gaviria",
                     role = c("ctb", "fnd"),
                     comment = c(ORCID = "0000-0003-4799-1457")),
-             person("Dunia H.", "Urrego", 
+             person("Dunia H.", "Urrego",
                     role = c("ctb", "fnd"),
-                    comment = c(ORCID = "0000-0001-7938-5529")))
+                    comment = c(ORCID = "0000-0001-7938-5529")),
+              person(given = "The authors of the dependency Rust crates",
+                     role = c("ctb"),
+                     comment = "see inst/AUTHORS file for details"))
 Description: Contains a variety of functions, based around
     regime shift analysis of paleoecological data.
     Citations:
     Rodionov() from Rodionov (2004) <doi:10.1029/2004GL019448>
-    Lanzante() from Lanzante (1996) <doi:10.1002/(SICI)1097-0088(199611)16:11%3C1197::AID-JOC89%3E3.0.CO;2-L>  
+    Lanzante() from Lanzante (1996) <doi:10.1002/(SICI)1097-0088(199611)16:11%3C1197::AID-JOC89%3E3.0.CO;2-L>
     Hellinger_trans from Numerical Ecology, Legendre & Legendre (ISBN 9780444538680)
     rolling_autoc from Liu, Gao & Wang (2018) <doi:10.1016/j.scitotenv.2018.06.276>
     Sample data sets lake_data & lake_RSI processed from Bush, Silman & Urrego (2004) <doi:10.1126/science.1090795>.
