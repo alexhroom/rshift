@@ -7,15 +7,11 @@ PKG_LIBS = -L$(LIBDIR) -lrshift -lresolv -pthread
 
 $(SHLIB): $(STATLIB)
 
-# CRAN policy forbids using $HOME so we build in the current working dir.
-# This makes things really slow because we have to reinstall all dependencies
-# for each build. Comment this out for non-CRAN releases.
-CARGOTMP=$(PWD)/.cargo
-export CARGO_HOME=$(CARGOTMP)
-
 $(STATLIB):
-	PATH="${PATH}:${HOME}/.cargo/bin" cargo build --release --manifest-path=rust/Cargo.toml
-	rm -Rf $(CARGOTMP) || true #CRAN wants us to remove "detritus"
+	$(TAR) --extract --xz -f ./rust/vendor.tar.xz -C . && \
+	mkdir -p ./.cargo && \
+	cp ./rust/cargo_vendor_config.toml ./.cargo/config.toml; \
+	PATH="${PATH}:${HOME}/.cargo/bin" cargo build -j 2 --release --offline --manifest-path=rust/Cargo.toml
 	rm -Rf $(LIBDIR)/build || true
 
 clean:

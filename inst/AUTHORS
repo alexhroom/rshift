@@ -1,0 +1,61 @@
+The authors of the dependency Rust crates:
+
+extendr-api (version 0.3.1):
+  andy-thomason
+  Thomas Down
+  Mossa Merhi Reimert
+  Claus O. Wilke
+  Hiroaki Yutani
+  Ilia A. Kosenkov
+
+extendr-engine (version 0.3.1):
+  andy-thomason
+  Thomas Down
+  Mossa Merhi Reimert
+  Claus O. Wilke
+  Hiroaki Yutani
+  Ilia A. Kosenkov
+
+extendr-macros (version 0.3.1):
+  andy-thomason
+  Thomas Down
+  Mossa Merhi Reimert
+  Claus O. Wilke
+  Hiroaki Yutani
+  Ilia A. Kosenkov
+
+lazy_static (version 1.4.0):
+  Marvin Löbel
+
+libR-sys (version 0.3.0):
+  andy-thomason
+  Thomas Down
+  Mossa Merhi Reimert
+  Claus O. Wilke
+  Ilia Kosenkov
+  Hiroaki Yutani
+
+paste (version 1.0.7):
+  David Tolnay
+
+proc-macro2 (version 1.0.40):
+  David Tolnay
+  Alex Crichton
+
+quote (version 1.0.20):
+  David Tolnay
+
+syn (version 1.0.98):
+  David Tolnay
+
+unicode-ident (version 1.0.1):
+  David Tolnay
+
+winapi-i686-pc-windows-gnu (version 0.4.0):
+  Peter Atashian
+
+winapi-x86_64-pc-windows-gnu (version 0.4.0):
+  Peter Atashian
+
+winapi (version 0.3.9):
+  Peter Atashian

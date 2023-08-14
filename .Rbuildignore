@@ -7,3 +7,7 @@
 ^.travis.yml$
 ^appveyor.yml$
 ^\.github$
+^src/vendor/
+^src/.cargo
+^config.dhall
+^update_authors.R
