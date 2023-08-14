@@ -37,9 +37,9 @@ jobs:
         run: |
           rustup target add i686-pc-windows-gnu
           rustup target add x86_64-pc-windows-gnu
-      
+
       - uses: r-lib/actions/setup-tinytex@v2
- 
+
       - name: Install additional LaTeX packages
         run: |
           tlmgr --version
@@ -62,6 +62,5 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
-      - uses: r-lib/actions/check-r-package@v2
-        with:
-          upload-snapshots: true
+      - name: R CMD check
+        run: R CMD check .
