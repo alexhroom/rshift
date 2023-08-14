@@ -10,3 +10,4 @@
 ^src/vendor/
 ^src/.cargo
 ^config.dhall
+^update_authors.R
