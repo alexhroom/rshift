@@ -8,7 +8,11 @@ all: C_clean
 $(SHLIB): $(STATLIB)
 
 $(STATLIB):
-	cargo build --target=$(TARGET) --lib --release --manifest-path=./rust/Cargo.toml
+	$(TAR) --extract --xz -f ./rust/vendor.tar.xz -C ./rust && \
+	mkdir -p ./rust/.cargo && \
+	cp ./rust/cargo_vendor_config.toml ./rust/.cargo/config.toml; \
+	PATH="${PATH}:${HOME}/.cargo/bin" cargo build --release --offline --manifest-path=rust/Cargo.toml
+	rm -Rf $(LIBDIR)/build || true
 
 C_clean:
 	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS)
