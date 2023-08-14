@@ -7,7 +7,7 @@
 \usepackage{graphicx}
 \usepackage{caption}
 
-\title{\texttt{rshift} STARS manual - regime shift analysis for paleoecological data\\v2.2.0}
+\title{\texttt{rshift} STARS manual - regime shift analysis for paleoecological data\\v2.2.1}
 
 \author{A. H. Room, F. Franco-Gaviria, D. H. Urrego}
 
@@ -23,8 +23,8 @@ This document will illustrate the theory behind STARS, as well as a guide on how
 STARS is based on the Student's t-test\footnote{which can be problematic; see section 4}; it goes along the data set, comparing each new observation against every entry in the current 'regime'. If an entry deviates significantly from the regime average, it becomes a hypothesised 'shift point', and the algorithm then tests if this shift is persistent. If it is, then  an RSI (regime shift index) is created to quantify the size of the shift, and the algorithm starts over using the shift point as the start of a new regime. Otherwise, it rejects the shift point, adds it to the current regime, and continues the search.\\
 You will need a table with two columns; an ordinated proxy or variable (such as pollen, temperature, or charcoal), and some form of time series, like a list of depths for samples or a chronology. From there, it goes like this:
 \begin{enumerate}
-    \item Firstly, we choose an '$l$' value. This is essentially your predicted length for each regime, and has knock-on effects for the sensitivity of the algorithm. If you choose a bad value, don't worry - you can always change it and start over. 10-15 is usually a good starting point. We also need a probability for statistical significance $p$ - usually 0.05 (a 5\% chance that a positive result is a fluke). 
-    \item We then calculate the difference between mean values that would be significantly different - i.e., how much your value has to shift between two adjacent observations for it to be considered a new regime. The formula for this is 
+    \item Firstly, we choose an '$l$' value. This is essentially your predicted length for each regime, and has knock-on effects for the sensitivity of the algorithm. If you choose a bad value, don't worry - you can always change it and start over. 10-15 is usually a good starting point. We also need a probability for statistical significance $p$ - usually 0.05 (a 5\% chance that a positive result is a fluke).
+    \item We then calculate the difference between mean values that would be significantly different - i.e., how much your value has to shift between two adjacent observations for it to be considered a new regime. The formula for this is
     $$\textrm{diff} = t_p(2l-2) \cdot \sqrt{2\sigma_l^2 / l}$$
     There are a couple new things here: $t_p(2l-2)$ is the critical value for a two-tailed t-test, at probability level $p$, with $2l-2$ degrees of freedom. We don't need to know what all these things mean just to use STARS - just find $2l-2$, google a t-table, and grab the value from it. \\
     $\sigma_l^2$ is an average 'rolling variance' - the variance of each adjacent group of 10 values. To find this, we calculate the variance for values 1 to 10, 2 to 11, 3 to 12, and so on until we reach the last ten, then find the mean.
@@ -38,7 +38,7 @@ You will need a table with two columns; an ordinated proxy or variable (such as 
     \item if RSI has gone negative, the test has failed. We consider RSI for $x_j$ to be 0. Add $x_j$ to the values for regime 1 (i.e. use it when calculating $\overline{x_{R1}}$, and go back to step 3. If it remained positive, then your final value is the RSI value for $x_j$, and j is the start point for a new regime.
     \item Calculate the value of $\overline{x_{R2}}$, i.e. the mean of all the values you used for the RSI calculation. We then start the search for regime 3 from $j + 1$, rather than from $l$ values along like before; this is so we still detect shifts even if regime 2 is a different length to $l$. Repeat steps 3 through 6 until you have processed all the data.
 \end{enumerate}
-If you would like an example of this in action, see Rodionov's original paper \citep{rodionov2004sequential}, which shows how it works with annual PDO data for temperature in January. 
+If you would like an example of this in action, see Rodionov's original paper \citep{rodionov2004sequential}, which shows how it works with annual PDO data for temperature in January.
 
 \section{Using STARS with \texttt{rshift}}
 Of course, all this grunt work is very boring. With modern technology, we can make computers do it for us instead! There is a function for this built into the \texttt{rshift} R package.
