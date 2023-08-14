@@ -11,7 +11,7 @@ $(STATLIB):
 	$(TAR) --extract --xz -f ./rust/vendor.tar.xz -C ./rust && \
 	mkdir -p ./rust/.cargo && \
 	cp ./rust/cargo_vendor_config.toml ./rust/.cargo/config.toml; \
-	PATH="${PATH}:${HOME}/.cargo/bin" cargo build --release --offline --manifest-path=rust/Cargo.toml
+	PATH="${PATH}:${HOME}/.cargo/bin" cargo build -j 2 --release --offline --manifest-path=rust/Cargo.toml
 	rm -Rf $(LIBDIR)/build || true
 
 C_clean:
