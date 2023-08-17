@@ -13,9 +13,6 @@
 #'
 #' @export
 RSI_graph <- function(data, col, time, rsi){
-
-
-  #while Rodionov() requires quotes, this doesn't work if you put quotes around col or time
   p1 <- ggplot(data) + geom_col(aes(x = .data[[time]], y = .data[[col]]))
   p2 <- ggplot(data) + geom_col(aes(x = .data[[time]], y = .data[[rsi]]))
   grid::pushViewport(grid::viewport(layout = grid::grid.layout(2, 1)))
