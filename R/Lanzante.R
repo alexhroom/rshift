@@ -12,7 +12,6 @@
 #' Lanzante(lake_data, "DCA1", "Age")
 #' Lanzante(lake_data, "DCA1", "Age", p=0.10, merge=TRUE)
 #' @import dplyr
-#' @importFrom magrittr %>%
 #' @importFrom stats pnorm
 #' @importFrom tibble as_tibble
 #' @export 
@@ -65,11 +64,9 @@ Lanzante <- function(data, col, time, p =0.05, merge = FALSE){
   #creates vectors for shift years and their corresponding p-values
     if(pnorm(z) <= p){
       p_vals <- c(p_vals, pnorm(z))
-      shift_at <- slice(db, n_1) %>%
-        select(all_of(time))
+      shift_at <- select(slice(db, n_1), all_of(time))
       shift_years <- c(shift_years, as.numeric(shift_at))
-      db <- db %>%
-        slice(-c(n_1))
+      db <- slice(db, -c(n_1))
     } else {
       break
     }
@@ -78,8 +75,7 @@ Lanzante <- function(data, col, time, p =0.05, merge = FALSE){
   #creates results table
   results <- as_tibble(cbind(shift_years, p_vals))
 
-  timename <- data %>%
-    select(all_of(time))
+  timename <- select(data, all_of(time))
   timename <- colnames(timename)
 
   names(results)[1] <- timename

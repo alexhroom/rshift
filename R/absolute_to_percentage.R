@@ -5,15 +5,12 @@
 #' @param site The column containing the site of each sample.
 #' @return The `data` dataframe with an added 'percentage' column.
 #' @import dplyr
-#' @importFrom magrittr %>%
 #' @export 
 absolute_to_percentage <- function(data, col, site){
 
-  #creates an empty table with the original table's columns, plus the hellinger values
+  #creates an empty table with the original table's columns, plus the percentage values
   #i'm aware this is incredibly hacky, but i couldn't find a better way
-  results <- data %>%
-    cbind(percentage = c(1:nrow(data))) %>%
-    filter(col == "bad programming")
+  results <- filter(cbind(data, hellinger_trans_vals = c(1:nrow(data))), col == "hack")
   #finds values for each site
   unique_sites <- unique(data[[site]])
   for(s in unique_sites){
