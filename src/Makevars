@@ -2,6 +2,8 @@ LIBDIR = rust/target/release
 STATLIB = $(LIBDIR)/librshift.a
 PKG_CFLAGS = -pthread
 PKG_LIBS = -L$(LIBDIR) -lrshift -lresolv -pthread
+CARGOTMP=$(PWD)/.cargo
+export CARGO_HOME=$(CARGOTMP)
 
 #all: clean
 
@@ -9,10 +11,11 @@ $(SHLIB): $(STATLIB)
 
 $(STATLIB):
 	$(TAR) --extract --xz -f ./rust/vendor.tar.xz -C . && \
-	mkdir -p ./.cargo && \
-	cp ./rust/cargo_vendor_config.toml ./.cargo/config.toml; \
+	mkdir -p $(CARGO_HOME) && \
+	cp ./rust/cargo_vendor_config.toml $(CARGO_HOME)/config.toml; \
 	PATH="${PATH}:${HOME}/.cargo/bin" cargo build -j 2 --release --offline --manifest-path=rust/Cargo.toml
 	rm -Rf $(LIBDIR)/build || true
+	rm -Rf $(CARGO_HOME) || true
 
 clean:
 	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS) rust/target
