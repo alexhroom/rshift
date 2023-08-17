@@ -13,6 +13,7 @@ $(STATLIB):
 	cp ./rust/cargo_vendor_config.toml ./.cargo/config.toml; \
 	PATH="$(USERPROFILE)\.cargo\bin:$(PATH)" cargo build --target=$(TARGET) -j 2 --offline --release --manifest-path=rust/Cargo.toml
 	rm -Rf $(LIBDIR)/build || true
+	rm -Rf ./.cargo || true
 
 C_clean:
 	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS)
