@@ -14,7 +14,7 @@
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @importFrom stats pnorm
-#' @importFrom tibble as.tibble
+#' @importFrom tibble as_tibble
 #' @export 
 Lanzante <- function(data, col, time, p =0.05, merge = FALSE){
 
@@ -76,7 +76,7 @@ Lanzante <- function(data, col, time, p =0.05, merge = FALSE){
   }
 
   #creates results table
-  results <- as.tibble(cbind(shift_years, p_vals))
+  results <- as_tibble(cbind(shift_years, p_vals))
 
   timename <- data %>%
     select(all_of(time))
