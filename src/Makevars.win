@@ -10,7 +10,10 @@ $(SHLIB): $(STATLIB)
 $(STATLIB):
 	$(TAR) --extract --xz -f ./rust/vendor.tar.xz -C . && \
 	mkdir -p ./.cargo && \
-	cp ./rust/cargo_vendor_config.toml ./.cargo/config.toml; \
+	cp ./rust/cargo_vendor_config.toml ./.cargo/config.toml;
+	# To comply with CRAN policy the versions of cargo and rustc
+	# need to be inlcuded in the installation log
+	echo `cargo --version` && echo `rustc --version`
 	PATH="$(USERPROFILE)\.cargo\bin:$(PATH)" cargo build --target=$(TARGET) -j 2 --offline --release --manifest-path=rust/Cargo.toml
 	rm -Rf $(LIBDIR)/build || true
 	rm -Rf ./.cargo || true
