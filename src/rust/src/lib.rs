@@ -17,9 +17,9 @@ fn rust_rodionov(vals: &[f64], t_crit: f64, l: usize) -> std::vec::Vec<f64> {
         let mean: f64 = vals
             .iter()
             .skip(i)
-            .take(l) // take values i through i+l
+            .take(l)
             .sum::<f64>()
-            / (l as f64); // mean average
+            / (l as f64);
 
         let var_l_i: f64 = vals
             .iter()
@@ -68,7 +68,6 @@ fn rust_rodionov(vals: &[f64], t_crit: f64, l: usize) -> std::vec::Vec<f64> {
 
         if rsi > 0. {
             // regime boundary found; start new regime
-            println!("{}", regime_mean);
             results.push(rsi);
             regime_length = 1;
             regime_mean = vals.iter().skip(i).take(l).sum::<f64>() / l as f64;
