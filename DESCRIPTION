@@ -23,7 +23,7 @@ Description: Contains a variety of functions, based around
     Hellinger_trans from Numerical Ecology, Legendre & Legendre (ISBN 9780444538680)
     rolling_autoc from Liu, Gao & Wang (2018) <doi:10.1016/j.scitotenv.2018.06.276>
     Sample data sets lake_data & lake_RSI processed from Bush, Silman & Urrego (2004) <doi:10.1126/science.1090795>
-    Sample data set January_PDO from NOAA: <https://www.ncei.noaa.gov/access/monitoring/pdo/>
+    Sample data set January_PDO from NOAA: <https://www.ncei.noaa.gov/access/monitoring/pdo/>.
 Suggests: R.rsp
 VignetteBuilder: R.rsp
 Depends: R (>= 3.5.0)
