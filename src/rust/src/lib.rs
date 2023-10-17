@@ -1,4 +1,5 @@
 use extendr_api::prelude::*;
+use std::cmp::min;
 
 /// Calculate STARS RSI points and return to R as a vector
 /// @param vals The column we are measuring change on
@@ -12,68 +13,76 @@ fn rust_rodionov(vals: &[f64], t_crit: f64, l: usize) -> std::vec::Vec<f64> {
     // (average variance over each continuous overlapping l-long interval)
     let mut var_l: f64 = 0.;
 
-    for i in 0..(vals.len()-l) {
-        let mean: f64 = vals.iter()
-                        .skip(i).take(l)  // take values i through i+l
-                        .sum::<f64>() / (l as f64);  // mean average 
+    for i in 0..(vals.len() - l) {
+        let mean: f64 = vals
+            .iter()
+            .skip(i)
+            .take(l) // take values i through i+l
+            .sum::<f64>()
+            / (l as f64); // mean average
 
-        let var_l_i: f64 = vals.iter()
-                           .skip(i).take(l)
-                           .map(|v| (v-mean).powi(2))  // map each v to its square deviance from mean 
-                           .sum::<f64>() / (l as f64); // take mean of deviances to get variation
+        let var_l_i: f64 = vals
+            .iter()
+            .skip(i)
+            .take(l)
+            .map(|v| (v - mean).powi(2)) // map each v to its square deviance from mean
+            .sum::<f64>()
+            / (l as f64); // take mean of deviances to get variation
         var_l += var_l_i;
-        }
+    }
 
     var_l /= (vals.len() - l) as f64;
-
 
     // calculate diff from sigma^2_l
     // TODO: figure out how to calculate t_crit
     let diff: f64 = t_crit * ((2. * var_l) / (l as f64)).sqrt();
 
-
     ////// begin regime shift search
-    
+
     // set initial regime length and boundaries
     let mut regime_length: usize = l;
-    let mut regime_mean: f64 = vals.iter()
-                               .take(l)
-                               .sum::<f64>() / l as f64;
+    let mut regime_mean: f64 = vals.iter().take(l).sum::<f64>() / l as f64;
     let mut rsi: f64;
+    let n: usize = vals.len();
 
-    for i in l..vals.len()-l+1 {
-
+    for i in l..n {
         if vals[i] < (regime_mean - diff) {
-            rsi = calculate_rsi(&vals[i..i+l], &(regime_mean - diff), true, &(l as f64), &var_l)
-        }
-        else if vals[i] > (regime_mean + diff) {
-            rsi = calculate_rsi(&vals[i..i+l], &(regime_mean + diff), false, &(l as f64), &var_l)
-        }
-        else {
+            rsi = calculate_rsi(
+                &vals[i..min(i + l, n)],
+                &(regime_mean - diff),
+                true,
+                &(l as f64),
+                &var_l,
+            )
+        } else if vals[i] > (regime_mean + diff) {
+            rsi = calculate_rsi(
+                &vals[i..min(i + l, n)],
+                &(regime_mean + diff),
+                false,
+                &(l as f64),
+                &var_l,
+            )
+        } else {
             rsi = 0.;
-            }
+        }
 
-        if rsi > 0. {  // regime boundary found; start new regime
+        if rsi > 0. {
+            // regime boundary found; start new regime
             println!("{}", regime_mean);
             results.push(rsi);
-            regime_length = 0;
-            regime_mean = vals.iter()
-                          .skip(i).take(l)
-                          .sum::<f64>() / l as f64;
-        } else {  // regime test failed; add value to current regime
+            regime_length = 1;
+            regime_mean = vals.iter().skip(i).take(l).sum::<f64>() / l as f64;
+        } else {
+            // regime test failed; add value to current regime
             results.push(0.);
             if regime_length > l {
-                regime_mean = vals.iter()
-                              .skip(i-l+1).take(l-1)
-                              .sum::<f64>() / (l-1) as f64;
-            } 
+                regime_mean = vals.iter().skip(i - l + 1).take(l).sum::<f64>() / l as f64;
+            }
             regime_length += 1;
-
         }
     }
 
     results
-
 }
 
 fn calculate_rsi(regime: &[f64], shift_boundary: &f64, is_down: bool, l: &f64, var_l: &f64) -> f64 {
@@ -88,7 +97,7 @@ fn calculate_rsi(regime: &[f64], shift_boundary: &f64, is_down: bool, l: &f64, v
         rsi += x_i_star / (l * var_l.sqrt());
         if rsi < 0. {
             rsi = 0.;
-            break
+            break;
         }
     }
     rsi

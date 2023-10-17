@@ -21,7 +21,6 @@ Rodionov <- function(data, col, time, l, prob = 0.05, startrow = 1, merge = FALS
   
   # call Rust code and add padding 0's to last l rows
   RSI <- rust_rodionov(vals, t_crit, l)
-  RSI <- c(RSI, rep(0, l-1))
 
   #creates results tibble
   output <- cbind(data, RSI)
