@@ -63,7 +63,7 @@ dependencies = [
 
 [[package]]
 name = "rshift"
-version = "2.2.2"
+version = "3.0.0"
 dependencies = [
  "extendr-api",
 ]
