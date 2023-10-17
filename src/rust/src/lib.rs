@@ -6,27 +6,26 @@ use extendr_api::prelude::*;
 /// @param l The cut-off length of a regime; affects sensitivity
 #[extendr(use_try_from = true)]
 fn rust_rodionov(vals: &[f64], t_crit: f64, l: usize) -> std::vec::Vec<f64> {
-    let mut results = Vec::new();
+    let mut results = vec![0.; l];
 
     // calculate sigma^2_l
     // (average variance over each continuous overlapping l-long interval)
     let mut var_l: f64 = 0.;
 
-    for i in 0..(vals.len() - l) {
-        let mut sum: f64 = 0.;
-        for v in vals.iter().skip(i).take(l) {
-            sum += v;
-        }
-        let mean: f64 = sum / (l as f64);
-        let mut sum_l: f64 = 0.;
-        for v in vals.iter().skip(i).take(l) {
-            sum_l += (v - mean).powi(2)
-        }
-        var_l += sum_l / (l as f64)
+    for i in 0..(vals.len()-l) {
+        let mean: f64 = vals.iter()
+                        .skip(i).take(l)  // take values i through i+l
+                        .sum::<f64>() / (l as f64);  // mean average 
 
+        let var_l_i: f64 = vals.iter()
+                           .skip(i).take(l)
+                           .map(|v| (v-mean).powi(2))  // map each v to its square deviance from mean 
+                           .sum::<f64>() / (l as f64); // take mean of deviances to get variation
+        var_l += var_l_i;
+        }
 
-    }
     var_l /= (vals.len() - l) as f64;
+
 
     // calculate diff from sigma^2_l
     // TODO: figure out how to calculate t_crit
@@ -37,46 +36,40 @@ fn rust_rodionov(vals: &[f64], t_crit: f64, l: usize) -> std::vec::Vec<f64> {
     
     // set initial regime length and boundaries
     let mut regime_length: usize = l;
-    let mut regime_mean: f64 = 0.;
-    for v in vals.iter().take(l) {
-        regime_mean += v;
-    }
-    regime_mean /= l as f64;
-    let mut boundary_upper: f64 = regime_mean + diff;
-    let mut boundary_lower: f64 = regime_mean - diff;
-
-    let cand_len = vals.len() - l + 1;
-    let candidates = &vals[..cand_len];
+    let mut regime_mean: f64 = vals.iter()
+                               .take(l)
+                               .sum::<f64>() / l as f64;
     let mut rsi: f64;
 
-    for (i, &val) in candidates.iter().enumerate() {
+    for i in l..vals.len()-l+1 {
 
-        if val < boundary_lower {
-            rsi = calculate_rsi(&vals[i..i+l], &boundary_lower, true, &(l as f64), &var_l)
+        if vals[i] < (regime_mean - diff) {
+            rsi = calculate_rsi(&vals[i..i+l], &(regime_mean - diff), true, &(l as f64), &var_l)
         }
-        else if val > boundary_upper {
-            rsi = calculate_rsi(&vals[i..i+l], &boundary_upper, false, &(l as f64), &var_l)
+        else if vals[i] > (regime_mean + diff) {
+            rsi = calculate_rsi(&vals[i..i+l], &(regime_mean + diff), false, &(l as f64), &var_l)
         }
         else {
             rsi = 0.;
-        }
+            }
 
         if rsi > 0. {  // regime boundary found; start new regime
+            println!("{}", regime_mean);
             results.push(rsi);
-            regime_length = l;
-            regime_mean = 0.;
-            for v in vals.iter().skip(i).take(l) {
-                regime_mean += v;
-            }
-            regime_mean /= l as f64;
+            regime_length = 0;
+            regime_mean = vals.iter()
+                          .skip(i).take(l)
+                          .sum::<f64>() / l as f64;
         } else {  // regime test failed; add value to current regime
             results.push(0.);
-            regime_mean = (regime_mean * (regime_length as f64)) + val;
+            if regime_length > l {
+                regime_mean = vals.iter()
+                              .skip(i-l+1).take(l-1)
+                              .sum::<f64>() / (l-1) as f64;
+            } 
             regime_length += 1;
-            regime_mean /= regime_length as f64;
+
         }
-        boundary_lower = regime_mean - diff;
-        boundary_upper = regime_mean + diff;
     }
 
     results
