@@ -1,4 +1,5 @@
 *.o
 *.so
 *.dll
-target
+target/
+vendor/

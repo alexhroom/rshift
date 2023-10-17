@@ -12,16 +12,15 @@
 #' @return If merge = FALSE (default), produces a 2-column table of time (the time value for each regime shift) and RSI (the regime shift index for each regime shift). If merge = TRUE, returns the original dataset with an extra RSI column, giving the regime shift index for each time unit - 0 for non-shift years.
 #' @examples 
 #' Rodionov(lake_data, "DCA1", "Age", l=5)
-#' Rodionov(lake_data, "DCA1", "Age", l=5, prob=0.99, startrow=2, merge=TRUE)
+#' Rodionov(lake_data, "DCA1", "Age", l=5, prob=0.01, startrow=2, merge=TRUE)
 #' @importFrom stats qt
 #' @export 
-Rodionov <- function(data, col, time, l, prob = 0.95, startrow = 1, merge = FALSE){
+Rodionov <- function(data, col, time, l, prob = 0.05, startrow = 1, merge = FALSE){
   vals <- data[[col]]
-  t_crit <- qt(prob, (2 * l - 2))
+  t_crit <- abs(qt(prob/2, (2 * l - 2)))  # the fiddling is to get two-tailed test
   
   # call Rust code and add padding 0's to last l rows
   RSI <- rust_rodionov(vals, t_crit, l)
-  RSI <- c(RSI, rep(0, l-1))
 
   #creates results tibble
   output <- cbind(data, RSI)

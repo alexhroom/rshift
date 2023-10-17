@@ -4,7 +4,7 @@
 \alias{Rodionov}
 \title{Rodionov (2004)'s STARS algorithm}
 \usage{
-Rodionov(data, col, time, l, prob = 0.95, startrow = 1, merge = FALSE)
+Rodionov(data, col, time, l, prob = 0.05, startrow = 1, merge = FALSE)
 }
 \arguments{
 \item{data}{The dataframe to be used.}
@@ -29,5 +29,5 @@ performs STARS analysis (Rodionov, 2004) on a dataset
 }
 \examples{
 Rodionov(lake_data, "DCA1", "Age", l=5)
-Rodionov(lake_data, "DCA1", "Age", l=5, prob=0.99, startrow=2, merge=TRUE)
+Rodionov(lake_data, "DCA1", "Age", l=5, prob=0.01, startrow=2, merge=TRUE)
 }
