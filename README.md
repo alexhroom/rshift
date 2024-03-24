@@ -22,6 +22,8 @@ Now, it is maintained and improved on a volunteer/free time basis; if you have a
 
 
 ## Selected publications using rshift
-[Espinoza, Ismael G., et al. "Holocene fires and ecological novelty in the high Colombian Cordillera Oriental." Frontiers in Ecology and Evolution (2022): 475.](https://doi.org/10.3389/fevo.2022.895152)
+- [Espinoza, Ismael G., et al. "Holocene fires and ecological novelty in the high Colombian Cordillera Oriental." Frontiers in Ecology and Evolution (2022)](https://doi.org/10.3389/fevo.2022.895152)
 
-*(If you use rshift in your publication, please let me know and I'll be happy to include it here!)*
+- [Catherwood, Avery A. and Knapp, Paul A. "Increasing precipitation variability and climate-growth responses of five tree species in North Carolina, USA" Environmental Research: Climate (2023)](https://doi.org/10.1088/2752-5295/ad0445)
+
+*(If you use rshift in your publication, please let me know and I'd love to include it here!)*
