@@ -10,7 +10,7 @@
 #' @return Two graphs, one on top of the other; one of col against time and one of RSI against time.
 #' @examples 
 #' RSI_graph(lake_RSI, "DCA1", "Age", "RSI")
-#' @importFrom ggplot2 ggplot geom_col aes
+#' @importFrom ggplot2 ggplot geom_col geom_line aes
 #'
 #' @export
 RSI_graph <- function(data, col, time, rsi, mean_lines = FALSE){
