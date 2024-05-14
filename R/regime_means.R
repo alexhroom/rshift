@@ -12,8 +12,8 @@
 #'
 #' @export
 regime_means <- function(data, col, rsi){  
-  col <- data[,col]
-  rsi <- data[,rsi]
+  col <- data[[col]]
+  rsi <- data[[rsi]]
   current_regime <- c()
   regime_means <- c()
   
