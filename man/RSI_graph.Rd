@@ -4,7 +4,7 @@
 \alias{RSI_graph}
 \title{Regime Shift Index graph}
 \usage{
-RSI_graph(data, col, time, rsi)
+RSI_graph(data, col, time, rsi, mean_lines = FALSE)
 }
 \arguments{
 \item{data}{The dataframe that will be used.}
@@ -14,6 +14,8 @@ RSI_graph(data, col, time, rsi)
 \item{time}{The column containing time units (e.g. age of a subsample)}
 
 \item{rsi}{The column containing RSI values (for best visualisation use Rodionov() with merge=TRUE)}
+
+\item{mean_lines}{If true, add lines over the data indicating the mean of each regime.}
 }
 \value{
 Two graphs, one on top of the other; one of col against time and one of RSI against time.
