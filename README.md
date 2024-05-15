@@ -5,7 +5,7 @@ An R library for paleoecology and regime shift analysis.
 These functions assume your data is in tidy format.
 
 `rshift` leverages [extendr](https://extendr.github.io/) to use algorithms written in Rust, making it faster
-than any possible R implementation! 
+than any R implementation! 
 
 ## Installation
 rshift is available on CRAN and R-universe, so can be installed via the RStudio package manager, or by running
