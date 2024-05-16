@@ -112,7 +112,7 @@ fn calculate_rsi(regime: &[f64], shift_boundary: &f64, is_down: bool, l: &f64, v
 
 /// Calculate STARS RSI points and return to R as a vector
 /// Uses Huber weighting to handle outliers
-/// @param input_vals The column we are measuring change on
+/// @param valsgi The column we are measuring change on
 /// @param t_crit The critical value of a t-distribution at the desired p-value
 /// @param l The cut-off length of a regime; affects sensitivity
 /// @param huber The tuning constant for Huber weighting.
