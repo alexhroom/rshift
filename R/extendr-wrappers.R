@@ -14,7 +14,16 @@ NULL
 #' @param vals The column we are measuring change on
 #' @param t_crit The critical value of a t-distribution at the desired p-value
 #' @param l The cut-off length of a regime; affects sensitivity
-rust_rodionov <- function(vals, t_crit, l) .Call(wrap__rust_rodionov, vals, t_crit, l)
+#' @param weights The Huber weights for each data point.
+rust_rodionov <- function(vals, t_crit, l, weights) .Call(wrap__rust_rodionov, vals, t_crit, l, weights)
+
+#' Calculate STARS RSI points and return to R as a vector
+#' Uses Huber weighting to handle outliers
+#' @param vals The column we are measuring change on
+#' @param t_crit The critical value of a t-distribution at the desired p-value
+#' @param l The cut-off length of a regime; affects sensitivity
+#' @param huber The tuning constant for Huber weighting.
+rust_rodionov_huber <- function(vals, t_crit, l, huber) .Call(wrap__rust_rodionov_huber, vals, t_crit, l, huber)
 
 #' Calculates the mean for each regime in a regime shift analysis.
 #' @param col The column we are measuring change on.

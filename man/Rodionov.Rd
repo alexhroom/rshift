@@ -4,7 +4,16 @@
 \alias{Rodionov}
 \title{Rodionov (2004)'s STARS algorithm}
 \usage{
-Rodionov(data, col, time, l, prob = 0.05, startrow = 1, merge = FALSE)
+Rodionov(
+  data,
+  col,
+  time,
+  l,
+  prob = 0.05,
+  startrow = 1,
+  merge = FALSE,
+  huber = NA
+)
 }
 \arguments{
 \item{data}{The dataframe to be used.}
@@ -20,6 +29,8 @@ Rodionov(data, col, time, l, prob = 0.05, startrow = 1, merge = FALSE)
 \item{startrow}{What row the analysis starts at. Defaults to 1.}
 
 \item{merge}{Sets the result to be either a regime-shift only table (if FALSE), or an addition to the original table (if TRUE)}
+
+\item{huber}{If not NA (default), the Huber weight used to control outliers.}
 }
 \value{
 If merge = FALSE (default), produces a 2-column table of time (the time value for each regime shift) and RSI (the regime shift index for each regime shift). If merge = TRUE, returns the original dataset with an extra RSI column, giving the regime shift index for each time unit - 0 for non-shift years.
