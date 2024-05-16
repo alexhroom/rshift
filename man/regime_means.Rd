@@ -21,4 +21,5 @@ calculates the mean for each regime in a regime shift analysis.
 }
 \examples{
 regime_means(lake_RSI, "DCA1", "RSI")
+
 }
