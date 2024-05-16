@@ -8,7 +8,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
-\title{\texttt{rshift} STARS manual - regime shift analysis for paleoecological data\\v3.0.0}
+\title{\texttt{rshift} STARS manual - regime shift analysis for paleoecological data\\v3.1.0}
 
 \author{A. H. Room, F. Franco-Gaviria, D. H. Urrego}
 
@@ -17,69 +17,69 @@
 \maketitle
 
 \section{Introduction}
-STARS (Sequential T-test Analysis of Regime Shifts) is an algorithm which detects regime shifts in an ecosystem \citep{rodionov2004sequential} - 
-i.e., where the ecosystem undergoes a persistent change in some measure. Regime shifts can happen as a direct result of extrinsic factors like 
+STARS (Sequential T-test Analysis of Regime Shifts) is an algorithm which detects regime shifts in an ecosystem \citep{rodionov2004sequential} -
+i.e., where the ecosystem undergoes a persistent change in some measure. Regime shifts can happen as a direct result of extrinsic factors like
 fire or tidal disturbance, or by the breaking of a 'threshold factor' intrinsic to the ecosystem itself.\\
-This document will illustrate the theory behind STARS, as well as a guide on how to easily deploy it in R 
+This document will illustrate the theory behind STARS, as well as a guide on how to easily deploy it in R
 using the \texttt{rshift}\footnote{found at https://github.com/alexhroom/rshift} package.
 
 \section{Theory}
-STARS is based on the Student's t-test\footnote{which can be problematic; see section 4}; it goes along the data set, 
-comparing each new observation against every entry in the current 'regime'. If an entry deviates significantly from the 
-regime average, it becomes a hypothesised 'shift point', and the algorithm then tests if this shift is persistent. 
-If it is, then  an RSI (regime shift index) is created to quantify the size of the shift, and the algorithm starts over 
-using the shift point as the start of a new regime. Otherwise, it rejects the shift point, adds it to the current regime, 
+STARS is based on the Student's t-test\footnote{which can be problematic; see section 4}; it goes along the data set,
+comparing each new observation against every entry in the current 'regime'. If an entry deviates significantly from the
+regime average, it becomes a hypothesised 'shift point', and the algorithm then tests if this shift is persistent.
+If it is, then  an RSI (regime shift index) is created to quantify the size of the shift, and the algorithm starts over
+using the shift point as the start of a new regime. Otherwise, it rejects the shift point, adds it to the current regime,
 and continues the search.\\
-You will need a table with two columns; an ordinated proxy or variable (such as pollen, temperature, or charcoal), 
+You will need a table with two columns; an ordinated proxy or variable (such as pollen, temperature, or charcoal),
 and some form of time series, like a list of depths for samples or a chronology. From there, it goes like this:
 \begin{enumerate}
-    \item Firstly, we choose an '$l$' value. This is essentially your predicted length for each regime, and has knock-on effects for the sensitivity of the algorithm. 
-    If you choose a bad value, don't worry - you can always change it and start over. 10-15 is usually a good starting point. 
+    \item Firstly, we choose an '$l$' value. This is essentially your predicted length for each regime, and has knock-on effects for the sensitivity of the algorithm.
+    If you choose a bad value, don't worry - you can always change it and start over. 10-15 is usually a good starting point.
     We also need a probability for statistical significance $p$ - usually 0.05 (a 5\% chance that a positive result is a fluke).
-    \item We then calculate the difference between mean values that would be significantly different - i.e., how much your value has to shift between 
+    \item We then calculate the difference between mean values that would be significantly different - i.e., how much your value has to shift between
     two adjacent observations for it to be considered a new regime. The formula for this is
     $$\textrm{diff} = t_p(2l-2) \cdot \sqrt{2\sigma_l^2 / l}$$
-    There are a couple new things here: $t_p(2l-2)$ is the critical value for a two-tailed t-test, at probability level $p$, 
-    with $2l-2$ degrees of freedom. We don't need to know what all these things mean just to use STARS - just find $2l-2$, google a t-table, 
+    There are a couple new things here: $t_p(2l-2)$ is the critical value for a two-tailed t-test, at probability level $p$,
+    with $2l-2$ degrees of freedom. We don't need to know what all these things mean just to use STARS - just find $2l-2$, google a t-table,
     and grab the value from it. \\
-    $\sigma_l^2$ is an average 'rolling variance' - the variance of each adjacent group of 10 values. To find this, 
+    $\sigma_l^2$ is an average 'rolling variance' - the variance of each adjacent group of 10 values. To find this,
     we calculate the variance for values 1 to 10, 2 to 11, 3 to 12, and so on until we reach the last ten, then find the mean.
-    \item We calculate the initial mean of your proxy for regime 1 $\overline{x_{R1}}$, and find the range of acceptable values in this regime, 
-    which is the range from $\overline{x_{R1}} - \textrm{diff}$ to $\overline{x_{R1}} + \textrm{diff}$. Then, for each value starting with the $l + 1$'th value, 
+    \item We calculate the initial mean of your proxy for regime 1 $\overline{x_{R1}}$, and find the range of acceptable values in this regime,
+    which is the range from $\overline{x_{R1}} - \textrm{diff}$ to $\overline{x_{R1}} + \textrm{diff}$. Then, for each value starting with the $l + 1$'th value,
     check if it is outside the acceptable range. If it isn't, we change $\overline{x_{R1}}$ to the average of this value and the $l-1$ values before it.
-    \item If the value is outside the acceptable range, we consider this as our candidate shift point. Hereon, this candidate sample will be called $j$. 
+    \item If the value is outside the acceptable range, we consider this as our candidate shift point. Hereon, this candidate sample will be called $j$.
     We then calculate the Regime Shift Index (RSI) to test if it is a real shift point. The equation for this is:\\
     \[RSI_{i,j} = \sum_{i = j}^{j+l-1}\frac{x^*_i}{l \cdot \sigma_l}.\]
-    I will explain the process of how to use this, but first it is important to note that here, the direction of the shift becomes important. 
-    $x_i^*$ is equal to $x_i - (\overline{x_{R1}} + \textrm{diff})$ if the shift is up (i.e. $x_j > \overline{x_{R1}} + \textrm{diff}$), or 
-    $\overline{x_{R1}} - \textrm{diff} - x_i$ if the shift is down. (so $x_j < \overline{x_{R1}} - \textrm{diff}$) $\sigma_l$ is trivially the 
-    square root of $\sigma_l^2$, which you calculated in step 2. Furthermore, if the RSI value turns negative at any point during that sum, 
+    I will explain the process of how to use this, but first it is important to note that here, the direction of the shift becomes important.
+    $x_i^*$ is equal to $x_i - (\overline{x_{R1}} + \textrm{diff})$ if the shift is up (i.e. $x_j > \overline{x_{R1}} + \textrm{diff}$), or
+    $\overline{x_{R1}} - \textrm{diff} - x_i$ if the shift is down. (so $x_j < \overline{x_{R1}} - \textrm{diff}$) $\sigma_l$ is trivially the
+    square root of $\sigma_l^2$, which you calculated in step 2. Furthermore, if the RSI value turns negative at any point during that sum,
     stop calculating and go onto step 5.\\
     Of course, looking at that equation one might be confused on what to do with it, so we will look at it in more detail:\\
     $i$ is an index number; it stands for every value in the data between $j$ and $j + l - 1$. This means, starting from the j'th value of the data:\\
-    find $x_i$, the i'th value of your proxy/variable. Then, use it to calculate $x_i^*$. Divide this by $l \cdot \sigma_l$, and add it to a running total. 
-    Repeat with $i + 1$, $i + 2$ and so on until you reach $j + l - 1$. Each time you add a new value to your total, check if it is positive or negative; 
+    find $x_i$, the i'th value of your proxy/variable. Then, use it to calculate $x_i^*$. Divide this by $l \cdot \sigma_l$, and add it to a running total.
+    Repeat with $i + 1$, $i + 2$ and so on until you reach $j + l - 1$. Each time you add a new value to your total, check if it is positive or negative;
     if negative, stop calculating and go onto step 5.
-    \item if RSI has gone negative, the test has failed. We consider RSI for $x_j$ to be 0. Add $x_j$ to the values for regime 1 
-    (i.e. use it when calculating $\overline{x_{R1}}$, and go back to step 3. If it remained positive, then your final value is the RSI value for $x_j$, 
+    \item if RSI has gone negative, the test has failed. We consider RSI for $x_j$ to be 0. Add $x_j$ to the values for regime 1
+    (i.e. use it when calculating $\overline{x_{R1}}$, and go back to step 3. If it remained positive, then your final value is the RSI value for $x_j$,
     and j is the start point for a new regime.
-    \item Calculate the value of $\overline{x_{R2}}$, i.e. the mean of all the values you used for the RSI calculation. We then start the search for 
-    regime 3 from $j + 1$, rather than from $l$ values along like before; this is so we still detect shifts even if regime 2 is a different length to $l$. 
+    \item Calculate the value of $\overline{x_{R2}}$, i.e. the mean of all the values you used for the RSI calculation. We then start the search for
+    regime 3 from $j + 1$, rather than from $l$ values along like before; this is so we still detect shifts even if regime 2 is a different length to $l$.
     Repeat steps 3 through 6 until you have processed all the data.
 \end{enumerate}
 Note that when discarding a value, the way the new average is calculated is quite tricky: if you're $l$ or more values into the regime, then
 the new average is that value and the $l-1$ values before it. Otherwise (e.g. if you've started the regime 3 search from $j+1$) the current
-value being looked at is already in the average, so does not need to be recalculated! 
-If you would like an example of this in action, see Rodionov's original paper \citep{rodionov2004sequential}, which gives an example for annual 
+value being looked at is already in the average, so does not need to be recalculated!
+If you would like an example of this in action, see Rodionov's original paper \citep{rodionov2004sequential}, which gives an example for annual
 PDO data for temperature in January.
 
 \section{Using STARS with \texttt{rshift}}
-Of course, all this grunt work is very boring. With modern technology, we can make computers do it for us instead! 
+Of course, all this grunt work is very boring. With modern technology, we can make computers do it for us instead!
 There is a function for this built into the \texttt{rshift} R package.
 
 \subsection{Using \texttt{Rodionov()}}
-The \texttt{rshift} command for STARS is \texttt{Rodionov()}. It takes 7 variables, so in RStudio will look more like 
-\texttt{Rodionov(data, col, time, l, prob = 0.05, startrow = 1, merge = FALSE)}. These are the 7 inputs you can put into the function, 
+The \texttt{rshift} command for STARS is \texttt{Rodionov()}. It takes 7 variables, so in RStudio will look more like
+\texttt{Rodionov(data, col, time, l, prob = 0.05, startrow = 1, merge = FALSE)}. These are the 7 inputs you can put into the function,
 but only the first 4 are mandatory (the rest default to what's after the = sign).
 \begin{itemize}
     \item \texttt{data} - the dataset in R that you're using. This should NOT be in quote marks.
@@ -91,13 +91,13 @@ The other 3 variables are optional:
 \begin{itemize}
     \item \texttt{prob} - the significance probability. Defaults to $p = 0.05$.
     \item \texttt{startrow} - where the algorithm should start from, if you want to skip the first few rows of the dataset. Defaults to 1.
-    \item \texttt{merge} - changes the result to be either a regime-shift only table (if FALSE), or an additional column to the original table (if TRUE). 
-    If merge = FALSE (default), produces a 2-column table of 'time' (the time value for each regime shift) and 'RSI' (the RSI for each regime shift). 
+    \item \texttt{merge} - changes the result to be either a regime-shift only table (if FALSE), or an additional column to the original table (if TRUE).
+    If merge = FALSE (default), produces a 2-column table of 'time' (the time value for each regime shift) and 'RSI' (the RSI for each regime shift).
     If merge = TRUE, returns the original dataset with an extra RSI column, giving the RSI for each time unit - 0 for non-shift years.
 \end{itemize}
 So, as an example, we will reproduce the data from the Rodionov paper. Rodionov uses the Pacific Decadal Oscillation (PDO) as his dataset, a measure of climate
 variability over the Pacific Ocean (see \citet{mantua2002pacific} for more details). This is available in the \texttt{rshift} package as the dataset \texttt{January\_PDO}.
-To load it, ensure that `rshift' has been imported into your R session (with \texttt{library(rshift)}) and then run \texttt{data(January\_PDO)} to 
+To load it, ensure that `rshift' has been imported into your R session (with \texttt{library(rshift)}) and then run \texttt{data(January\_PDO)} to
 load the data into your session. We then can run the STARS algorithm in the simplest way with the following line of code:
 
 \begin{verbatim}
@@ -110,13 +110,17 @@ and it would return a list of points in the chronology where it has detected a r
 \texttt{rshift} also contains \texttt{RSI\_graph}, a way of visualising the results of a STARS test.
  Using our previous data, we run \texttt{Rodionov()} with \texttt{merge} set to TRUE,
 save it as RSI\_data with the \texttt{<-} operator, then use \texttt{RSI\_graph()} to create a graph.
+The parameter \texttt{mean\_lines} in \texttt{RSI\_graph()} add lines to the graph
+indicating the mean value of each regime.
 
 \begin{verbatim}
 RSI_data <- Rodionov(January_PDO, "PDO", "Age", 10, merge = TRUE)
-RSI_graph(RSI_data, "DCA1", "Age", "RSI"))
+RSI_graph(RSI_data, "DCA1", "Age", "RSI", mean_lines = TRUE))
 \end{verbatim}
 
-It takes the data, variable column and chronology like before, but you must also specify the name of the column with RSI values in (which \texttt{Rodionov()} automatically creates as 'RSI'). \newpage
+It takes the data, variable column and chronology like before,
+but you must also specify the name of the column with RSI values in
+(which \texttt{Rodionov()} automatically creates as 'RSI'). \newpage
 \begin{figure}[!h]
 \centering
 \begin{subfigure}[b]{\textwidth}
