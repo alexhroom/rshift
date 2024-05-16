@@ -4,7 +4,7 @@
 \alias{rust_rodionov}
 \title{Calculate STARS RSI points and return to R as a vector}
 \usage{
-rust_rodionov(vals, t_crit, l)
+rust_rodionov(vals, t_crit, l, weights)
 }
 \arguments{
 \item{vals}{The column we are measuring change on}
@@ -12,6 +12,8 @@ rust_rodionov(vals, t_crit, l)
 \item{t_crit}{The critical value of a t-distribution at the desired p-value}
 
 \item{l}{The cut-off length of a regime; affects sensitivity}
+
+\item{weights}{The Huber weights for each data point.}
 }
 \description{
 Calculate STARS RSI points and return to R as a vector
