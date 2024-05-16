@@ -110,7 +110,7 @@ and it would return a list of points in the chronology where it has detected a r
 \texttt{rshift} also contains \texttt{RSI\_graph}, a way of visualising the results of a STARS test.
  Using our previous data, we run \texttt{Rodionov()} with \texttt{merge} set to TRUE,
 save it as RSI\_data with the \texttt{<-} operator, then use \texttt{RSI\_graph()} to create a graph.
-The parameter \texttt{mean_lines} in \texttt{RSI\_graph()} add lines to the graph
+The parameter \texttt{mean\_lines} in \texttt{RSI\_graph()} add lines to the graph
 indicating the mean value of each regime.
 
 \begin{verbatim}
@@ -118,7 +118,9 @@ RSI_data <- Rodionov(January_PDO, "PDO", "Age", 10, merge = TRUE)
 RSI_graph(RSI_data, "DCA1", "Age", "RSI", mean_lines = TRUE))
 \end{verbatim}
 
-It takes the data, variable column and chronology like before, but you must also specify the name of the column with RSI values in (which \texttt{Rodionov()} automatically creates as 'RSI'). \newpage
+It takes the data, variable column and chronology like before,
+but you must also specify the name of the column with RSI values in
+(which \texttt{Rodionov()} automatically creates as 'RSI'). \newpage
 \begin{figure}[!h]
 \centering
 \begin{subfigure}[b]{\textwidth}
