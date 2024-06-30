@@ -6,7 +6,7 @@ use std::vec::Vec;
 /// @param vals The column we are measuring change on
 /// @param t_crit The critical value of a t-distribution at the desired p-value
 /// @param l The cut-off length of a regime; affects sensitivity
-#[extendr(use_try_from = true)]
+#[extendr]
 fn rust_rodionov(vals: &[f64], t_crit: f64, l: usize) -> Vec<f64> {
     let mut results = vec![0.; l];
 
@@ -107,7 +107,7 @@ fn calculate_rsi(regime: &[f64], shift_boundary: &f64, is_down: bool, l: &f64, v
 /// Calculates the mean for each regime in a regime shift analysis.
 /// @param col The column we are measuring change on.
 /// @param rsi The column containing RSI values.
-#[extendr(use_try_from = true)]
+#[extendr]
 fn rust_regime_means(col: &[f64], rsi: &[f64]) -> Vec<f64> {
     let mut means: Vec<f64> = Vec::new();
     let mut current_regime: Vec<f64> = Vec::new();

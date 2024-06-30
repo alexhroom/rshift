@@ -7,7 +7,7 @@ edition = '2021'
 crate-type = [ 'staticlib' ]
 
 [dependencies]
-extendr-api = "0.6"
+extendr-api = "0.7"
 
 [profile.release]
 opt-level = 'z'     # Optimize for size
