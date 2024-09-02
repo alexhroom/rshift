@@ -2,6 +2,7 @@
 export PATH="$PATH:$HOME/.cargo/bin"
 if [ $(command -v cargo) ]; then
   cargo --version
+  rustc --version
 else
   echo "----------------------- [RUST NOT FOUND]---------------------------"
   echo "This package requires an installation of Rust to build from source."
