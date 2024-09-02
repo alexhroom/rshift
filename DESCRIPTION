@@ -4,7 +4,7 @@ Title: Paleoecology Functions for Regime Shift Analysis
 Version: 3.1.0
 Authors@R: c(person("Alex H.", "Room",
                     role = c("aut", "cre", "cph"),
-                    email = "alex.room@btinternet.com",
+                    email = "alexhroom+cran@protonmail.com",
                     comment = c(ORCID = "0000-0002-5314-2331")),
              person("Felipe", "Franco-Gaviria",
                     role = c("ctb", "fnd"),
