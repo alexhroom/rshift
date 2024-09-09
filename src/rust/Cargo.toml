@@ -1,13 +1,13 @@
 [package]
 name = 'rshift'
-version = '3.1.0'
+version = '3.1.1'
 edition = '2021'
 
 [lib]
 crate-type = [ 'staticlib' ]
 
 [dependencies]
-extendr-api = "0.7"
+extendr-api = "0.7.1"
 
 [profile.release]
 opt-level = 'z'     # Optimize for size
