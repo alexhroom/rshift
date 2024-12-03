@@ -25,13 +25,16 @@ Lanzante <- function(data, col, time, p =0.05, merge = FALSE){
   db <- data
 
   #vectors for later
-  SR_vec <- vector()
-  SA_vec <- vector()
   shift_years <- vector()
   p_vals <- vector()
 
   #creates rank sum and adjusted sum table
   for(n in 1:nrows_full){
+    
+    #vectors for SR and SA
+    SR_vec <- vector()
+    SA_vec <- vector()
+    
     ranks <- rank(db[[col]])
     nrows <- nrow(db)
     for(i in 1:nrows){
@@ -39,7 +42,7 @@ Lanzante <- function(data, col, time, p =0.05, merge = FALSE){
       SR_vec <- c(SR_vec, SR)
       SA <- abs(2 * SR - i * (nrows + 1))
       SA_vec <- c(SA_vec, SA)
-  }
+    }
   #creates table of SR and corresponding SA
     sum_vals <- as.data.frame(cbind(SR_vec, SA_vec))
 
