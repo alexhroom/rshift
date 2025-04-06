@@ -7,8 +7,13 @@ edition = '2021'
 crate-type = [ 'staticlib' ]
 
 [dependencies]
-extendr-api = "0.7.1"
+extendr-api = "0.8.0"
 
 [profile.release]
 opt-level = 'z'     # Optimize for size
 lto = true          # Enable link-time optimization
+
+# to get patch and fix _abort issue
+[patch.crates-io]
+extendr-api = { git = "https://github.com/extendr/extendr" }
+
