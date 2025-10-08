@@ -2,6 +2,7 @@
 name = 'rshift'
 version = '3.1.2'
 edition = '2021'
+rust_version = "1.65.0"
 
 [lib]
 crate-type = [ 'staticlib' ]
